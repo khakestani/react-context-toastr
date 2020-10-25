@@ -1,4 +1,4 @@
-import {createReducer, guid}  from './utils.js';
+import { createReducer, guid } from './utils.js';
 import config from './config';
 import {
   ADD_TOASTR,
@@ -6,16 +6,16 @@ import {
   CLEAN_TOASTR,
   SHOW_CONFIRM,
   HIDE_CONFIRM,
-  REMOVE_BY_TYPE
+  REMOVE_BY_TYPE,
 } from './constants';
 
 // TOTO: find a better way of handling this issue
 // We will cache data so we can check for duplicated before fire the add action.
 export let toastrsCache = [];
 
-const initialState = {
+export const initialState = {
   toastrs: [],
-  confirm: null
+  confirm: null,
 };
 
 export default createReducer(initialState, {
@@ -27,10 +27,15 @@ export default createReducer(initialState, {
     const newToastr = {
       id: guid(),
       position: config.position,
-      ...toastr
+      ...toastr,
     };
 
-    if (!newToastr.a11yId && toastr && toastr.hasOwnProperty('id') && !toastr.hasOwnProperty('a11yId')) {
+    if (
+      !newToastr.a11yId &&
+      toastr &&
+      toastr.hasOwnProperty('id') &&
+      !toastr.hasOwnProperty('a11yId')
+    ) {
       newToastr.a11yId = toastr.id;
     }
 
@@ -38,18 +43,12 @@ export default createReducer(initialState, {
     if (!config.newestOnTop) {
       newState = {
         ...state,
-        toastrs: [
-          ...state.toastrs,
-          newToastr
-        ]
+        toastrs: [...state.toastrs, newToastr],
       };
     } else {
       newState = {
         ...state,
-        toastrs: [
-          newToastr,
-          ...state.toastrs
-        ]
+        toastrs: [newToastr, ...state.toastrs],
       };
     }
     toastrsCache = newState.toastrs;
@@ -58,7 +57,7 @@ export default createReducer(initialState, {
   [REMOVE_TOASTR]: (state, id) => {
     let newState = {
       ...state,
-      toastrs: state.toastrs.filter(toastr => toastr.id !== id)
+      toastrs: state.toastrs.filter(toastr => toastr.id !== id),
     };
 
     toastrsCache = newState.toastrs;
@@ -67,34 +66,34 @@ export default createReducer(initialState, {
   [REMOVE_BY_TYPE]: (state, type) => {
     let newState = {
       ...state,
-      toastrs: state.toastrs.filter(toastr => toastr.type !== type)
+      toastrs: state.toastrs.filter(toastr => toastr.type !== type),
     };
 
     toastrsCache = newState.toastrs;
     return newState;
   },
-  [CLEAN_TOASTR]: (state) => {
+  [CLEAN_TOASTR]: state => {
     toastrsCache = [];
     return {
       ...state,
-      toastrs: []
+      toastrs: [],
     };
   },
-  [SHOW_CONFIRM]: (state, {id, message, options}) => {
+  [SHOW_CONFIRM]: (state, { id, message, options }) => {
     return {
       ...state,
       confirm: {
         id: id || guid(),
         show: true,
         message,
-        options: options || {}
-      }
+        options: options || {},
+      },
     };
   },
-  [HIDE_CONFIRM]: (state) => {
+  [HIDE_CONFIRM]: state => {
     return {
       ...state,
-      confirm: null
+      confirm: null,
     };
-  }
+  },
 });

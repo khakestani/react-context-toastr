@@ -1,15 +1,15 @@
 {
-  "name": "react-redux-toastr",
+  "name": "react-context-toastr",
   "version": "7.6.4",
-  "description": "react-redux-toastr is a React toastr message implemented with Redux",
+  "description": "react-context-toastr is a React toastr message implemented with React Context",
   "main": "lib/index.js",
   "jsnext:main": "./src/index.js",
   "scripts": {
     "start": "better-npm-run dev-server",
     "dev_win": "NODE_ENV=development NODE_PORT=3000 ./node_modules/.bin/webpack-dev-server --hot --inline --config build/webpack.config.js",
     "build": "./node_modules/.bin/babel src/ --out-dir lib && npm run sass && npm run postcss",
-    "sass": "./node_modules/.bin/node-sass src/styles/index.scss lib/css/react-redux-toastr.min.css --output-style compressed",
-    "postcss": "./node_modules/.bin/postcss --u autoprefixer -o ./lib/css/react-redux-toastr.min.css ./lib/css/react-redux-toastr.min.css",
+    "sass": "./node_modules/.bin/node-sass src/styles/index.scss lib/css/react-context-toastr.min.css --output-style compressed",
+    "postcss": "./node_modules/.bin/postcss --u autoprefixer -o ./lib/css/react-context-toastr.min.css ./lib/css/react-context-toastr.min.css",
     "clean": "./node_modules/.bin/rimraf dist lib",
     "lint": "./node_modules/eslint/bin/eslint.js --fix .",
     "build_app": "concurrently \"npm run clean\" \"npm run lint\" \"npm run build\" \"npm run sass\" \"npm run clean\"",
@@ -37,10 +37,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/diegoddox/react-redux-toastr.git"
+    "url": "git+https://github.com/khakestani/react-context-toastr.git"
   },
   "bugs": {
-    "url": "https://github.com/diegoddox/react-redux-toastr/issues"
+    "url": "https://github.com/khakestani/react-context-toastr/issues"
   },
   "files": [
     "src/",
@@ -51,10 +51,10 @@
   "keywords": [
     "React.js",
     "React",
-    "Redux",
+    "Context",
     "react",
-    "redux toastr",
-    "react-redux-toastr",
+    "context toastr",
+    "react-context-toastr",
     "react-component",
     "toastr",
     "alert",
@@ -62,8 +62,8 @@
     "message",
     "popup",
     "react toastr",
-    "react redux toastr",
-    "react toastr redux",
+    "react context toastr",
+    "react toastr context",
     "react confirm",
     "react alert",
     "avatar",
@@ -122,5 +122,5 @@
     "classnames": "^2.2.3",
     "eventemitter3": "^3.1.0"
   },
-  "homepage": "https://github.com/diegoddox/react-redux-toastr#readme"
+  "homepage": "https://github.com/khakestani/react-context-toastr#readme"
 }

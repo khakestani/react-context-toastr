@@ -1,15 +1,13 @@
-import './index.scss';
-import './../src/styles/index.scss';
 import React from 'react';
-import {Provider} from 'react-redux';
-import ReduxToastr from './../src/';
+import ToastrProvider from './../src/';
+import './../src/styles/index.scss';
+import './index.scss';
 import Menu from './Menu';
 
-export default (props) => (
-  <Provider store={props.store}>
-    <div className="wrapper">
-      <ReduxToastr preventDuplicates position="bottom-left"/>
+export default () => (
+  <div className="wrapper">
+    <ToastrProvider position="bottom-left">
       <Menu />
-    </div>
-  </Provider>
+    </ToastrProvider>
+  </div>
 );

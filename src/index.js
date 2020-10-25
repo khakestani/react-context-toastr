@@ -1,9 +1,9 @@
-import ReduxToastr from './ReduxToastr';
-import * as ReduxToastrActions from './actions';
-import ReduxToastrReducer from './reducer';
-import {toastrEmitter} from './toastrEmitter';
+import ToastrProvider from "./ToastrProvider";
+import * as ContextToastrActions from "./actions";
+import ContextToastrReducer from "./reducer";
+import { toastrEmitter } from "./toastrEmitter";
 
-export default ReduxToastr;
-export const actions = ReduxToastrActions;
-export const reducer = ReduxToastrReducer;
+export default ToastrProvider;
+export const actions = ContextToastrActions;
+export const reducer = ContextToastrReducer;
 export const toastr = toastrEmitter;

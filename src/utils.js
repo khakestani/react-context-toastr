@@ -8,7 +8,7 @@ function whichAnimationEvent() {
     animation: 'animationend',
     oanimation: 'oanimationend',
     MSAnimation: 'MSAnimationEnd',
-    webkitAnimation: 'webkitAnimationEnd'
+    webkitAnimation: 'webkitAnimationEnd',
   };
 
   for (t in transitions) {
@@ -20,7 +20,7 @@ function whichAnimationEvent() {
 
 function createNewEvent(eventName) {
   var event;
-  if (typeof (Event) === 'function') {
+  if (typeof Event === 'function') {
     event = new Event(eventName);
   } else {
     event = document.createEvent('Event');
@@ -44,7 +44,9 @@ export function toastrWarn(message) {
 }
 
 export function createReducer(initialState, fnMap) {
-  return (state = initialState, {type, payload}) => {
+  return (state = initialState, { type, payload }) => {
+    console.log('createReducer -> payload', type);
+
     const handle = fnMap[type];
     return handle ? handle(state, payload) : state;
   };
@@ -58,7 +60,7 @@ export function isBrowser() {
 }
 
 export function keyCode(e) {
-  return (e.which) ? e.which : e.keyCode;
+  return e.which ? e.which : e.keyCode;
 }
 
 export function mapToToastrMessage(type, array) {
@@ -100,8 +102,13 @@ export function mapToToastrMessage(type, array) {
 }
 
 export function guid() {
-  const r = () => Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
-  return r() + r() + r() + '-' + r() + '_' + r() + '-' + r() + '_' + r() + r() + r();
+  const r = () =>
+    Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  return (
+    r() + r() + r() + '-' + r() + '_' + r() + '-' + r() + '_' + r() + r() + r()
+  );
 }
 
 export function onCSSTransitionEnd(node, callback) {
@@ -110,13 +117,15 @@ export function onCSSTransitionEnd(node, callback) {
   }
   // if css animation is failed - dispatch event manually
   const animationEnd = whichAnimationEvent();
-  const timeoutId = setTimeout(function() {
+  const timeoutId = setTimeout(function () {
     const e = createNewEvent(animationEnd);
-    toastrWarn('The toastr box was closed automatically, please check \'transitionOut\' prop value');
+    toastrWarn(
+      "The toastr box was closed automatically, please check 'transitionOut' prop value"
+    );
     node.dispatchEvent(e);
   }, config.maxAnimationDelay);
 
-  const runOnce = (e) => {
+  const runOnce = e => {
     clearTimeout(timeoutId);
     // stopPropagation is not working in IE11 and Edge, the transitionend from the Button.js is waiting
     // on the confirm animation to end first and not the Button.js
@@ -129,11 +138,15 @@ export function onCSSTransitionEnd(node, callback) {
 
 export function preventDuplication(currentData, newObjec) {
   let hasDuplication = false;
-  currentData.forEach((item) => {
+  currentData.forEach(item => {
     // If the toastr options implicitly specify not to prevent duplicates then skip
     if (item.options && item.options.preventDuplicates === false) return;
     // Because the toastr has a unic id we will check by the title and message.
-    if (item.title === newObjec.title && item.message === newObjec.message && item.type === newObjec.type) {
+    if (
+      item.title === newObjec.title &&
+      item.message === newObjec.message &&
+      item.type === newObjec.type
+    ) {
       hasDuplication = true;
     }
   });
@@ -141,7 +154,7 @@ export function preventDuplication(currentData, newObjec) {
 }
 
 export function updateConfig(obj) {
-  Object.keys(config).forEach(function(key) {
+  Object.keys(config).forEach(function (key) {
     if (obj.hasOwnProperty(key)) {
       config[key] = obj[key];
     }
@@ -153,5 +166,5 @@ export function _bind(strinOrAray, scope) {
   if (!Array.isArray(strinOrAray)) {
     array = strinOrAray.split(' ');
   }
-  return array.map(item=> scope[item] = scope[item].bind(scope));
+  return array.map(item => (scope[item] = scope[item].bind(scope)));
 }
