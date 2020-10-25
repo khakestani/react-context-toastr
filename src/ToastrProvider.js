@@ -170,49 +170,10 @@ ContextToastr.defaultProps = {
   transitionOut: TRANSITIONS.out[0],
   preventDuplicates: false,
   closeOnToastrClick: false,
-  getState: state => state.toastr,
   confirmOptions: {
     okText: 'ok',
     cancelText: 'cancel',
   },
-};
-
-export let toastrsCache = [];
-
-const testReducer = (state = initialState, toastr) => {
-  if (toastr.ignoreToastr) {
-    return state;
-  }
-
-  const newToastr = {
-    id: guid(),
-    position: config.position,
-    ...toastr,
-  };
-
-  if (
-    !newToastr.a11yId &&
-    toastr &&
-    toastr.hasOwnProperty('id') &&
-    !toastr.hasOwnProperty('a11yId')
-  ) {
-    newToastr.a11yId = toastr.id;
-  }
-
-  let newState = {};
-  if (!config.newestOnTop) {
-    newState = {
-      ...state,
-      toastrs: [...state.toastrs, newToastr],
-    };
-  } else {
-    newState = {
-      ...state,
-      toastrs: [newToastr, ...state.toastrs],
-    };
-  }
-  toastrsCache = newState.toastrs;
-  return newState;
 };
 
 const ToastrProvider = ({ children, ...rest }) => {
