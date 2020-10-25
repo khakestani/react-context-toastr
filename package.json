@@ -1,6 +1,6 @@
 {
   "name": "react-context-toastr",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "react-context-toastr is a React toastr message implemented with React Context",
   "main": "lib/index.js",
   "jsnext:main": "./src/index.js",
